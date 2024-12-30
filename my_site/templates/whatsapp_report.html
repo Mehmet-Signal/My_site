@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="row">
+        <div>
+        
+          <a id="chatbot-report-link"  href="{% url 'my_app:get_chatbot_report' %}" class="btn btn-primary">Chatbot Raporu İndir</a>
+        </div>
+  </div>
+    
+</body>
+</html>
+
+{% block footer %}
+    <!-- JQuery Data Tables -->
+    <script src="{% static 'libs/datatables/datatables.min.js' %}"></script>
+    <script src="{% static 'libs/datatables/dataTables.select.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+  <script>
+    $(document).ready(function () {
+        document.getElementById('start_datefilter').valueAsDate = new Date()
+        document.getElementById('end_datefilter').valueAsDate = new Date()
+        const start_date = $('#start_datefilter').val()
+        const end_date = $('#end_datefilter').val()
+        $('#chat-report-link').attr('href','/visitors/get-message-report?start_date='+start_date+'&end_date='+end_date)
+        $('#chatbot-report-link').attr('href','/visitors/get-chatbot-report?date='+start_date+'&end_date='+end_date)
+    })
+    function handler(){
+        const start_date = document.getElementById('start_datefilter').value
+        const end_date = document.getElementById('end_datefilter').value
+        
+        $('#chat-report-link').attr('href','/visitors/get-message-report?start_date='+start_date+'&end_date='+end_date)
+        $('#chatbot-report-link').attr('href','/visitors/get-chatbot-report?start_date='+start_date+'&end_date='+end_date)
+    }
+  </script>
+{% endblock footer %}
